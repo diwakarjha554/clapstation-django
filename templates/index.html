@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block index %}
+
+<!--webpage-->
+
+
+
+
+	<div class="webpage page-new-home">
+		<div class="container-fluid home-page">
+	
+			<div class="universal-container-box">
+	
+				<div class="row">
+	
+					<div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 home-left-col">
+						<div class="home-left-area main-home-left-area">
+
+							<div class="home-fltr-btn">
+								<div class="dd-lft">
+									
+									<div class="dropdown">
+										<button class="btn btn-secondary dropdown-toggle" type="button"
+											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											<span><i class="fa fa-filter" aria-hidden="true"></i></span>
+											Filter the View
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="#"><i class="fa fa-filter"
+													aria-hidden="true"></i>Friends</a>
+											<a class="dropdown-item" href="#"><i class="fa fa-filter"
+													aria-hidden="true"></i>Artists</a>
+											<a class="dropdown-item" href="#"><i class="fa fa-filter"
+													aria-hidden="true"></i>Bands</a>
+											<a class="dropdown-item" href="#"><i class="fa fa-filter"
+													aria-hidden="true"></i>Academies</a>
+											<a class="dropdown-item" href="#"><i class="fa fa-filter"
+													aria-hidden="true"></i>Jamming Stations</a>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+
+							<div class="left-image-in">
+								<img src="{{userDetail.boxImage.url}}">
+								<p>{{loggedInUser.first_name}} {{loggedInUser.last_name}}</p>
+							</div>
+
+							<div class="home-left-area-btn">
+								<button class="cmmn-btn" type="button">Book Jamming Space</button>
+								<button class="cmmn-btn" type="button">Book a Tutor</button>
+								<button class="cmmn-btn" type="button">Search Students</button>
+							</div>
+
+						</div>
+					</div>
+	
+					<div class="col-lg-7 col-md-3 col-sm-12 col-xs-12 home-center-col">
+						<div class="home-middle-area main-home-middle-area">
+							{% if request.user.is_authenticated%}
+							<form action="{% url 'post-create' %}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="middle-upload-post-section">
+									<div class="middle-txt-area">
+										<a id="homePostUploadTrigger">
+											<textarea readonly class="scroll-remover" rows="1" cols="90"
+											placeholder="Share your content....."></textarea>
+										</a>
+									</div>
+
+									<!-- Home Upload Post Modal -->
+									<div class="home-upload-post-modal-wrapper">
+									
+										<div class="home-upload-post-modal-container">
+									
+											<div class="home-upload-post-modal-header">
+									
+												<span class="create-post-text-span">
+													Create Post
+												</span>
+									
+												<button  type="button" id="homeUploadCloseButton">
+													&times;
+												</button>
+									
+											</div>
+									
+											<div class="universal-hr-line"></div>
+									
+											<div class="home-upload-post-modal-content-area">
+									
+												<div class="home-upload-post-modal-text-area">
+									
+													{% comment %} <textarea onkeyup="enableSubmit()" id="home-upload-text-area" name="post-content" placeholder="Share your content....."></textarea> {% endcomment %}
+													{{uploadPostForm.postContent}}
+									
+													<label class="home-img-upload-section">
+														{% comment %} <input class="home-img-upload" type="file" id="img-input" name="post-image"> {% endcomment %}
+														{{uploadPostForm.postImage}}
+														<img class="display-img-container" id="display-img" src="{% static 'img/photo.png' %}">
+													</label>
+									
+												</div>
+									
+											</div>
+									
+											<div class="universal-hr-line">
+									
+											</div>
+									
+											<div class="home-upload-post-modal-action-area">
+									
+												<button  class="home-upload-post-modal-action-button" type="submit">
+													Post
+												</button>
+									
+											</div>
+									
+										</div>
+									
+									</div>
+									
+									<div class="hr-line"></div>
+									
+									<div class="middle-text-post">
+										<div class="">
+											<a href="#">
+												<li>
+													<img src="{% static 'img/video.png' %}">
+													<span>Live Videos</span>
+												</li>
+											</a>
+										
+											<a id="homePostUploadBtn">
+												<li>
+													<img src="{% static 'img/photo.png' %}">
+													<span>
+														Photos/Videos
+													</span>
+												</li>
+											</a>
+										
+											<a id="homeEventsBtn">	
+												<li>
+													<img src="{% static 'img/calendar.png' %}">
+													<span>
+														Events
+													</span>
+												</li>
+											</a>
+										</div>
+									</div>
+
+									<!-- Home Events Icon Modal -->
+									<div class="home-events-icon-modal-wrapper">
+
+										<div class="home-events-icon-modal-container">
+
+											<div class="home-events-post-modal-header">
+									
+												<span class="create-events-text-span">
+													Create an event
+												</span>
+									
+												<button  type="button" id="homeEventsCloseButton">
+													&times;
+												</button>
+									
+											</div>
+
+											<div class="universal-hr-line"></div>
+
+											<div class="home-events-container-area">
+
+												<div class="home-event-container-image-area">
+
+													<label class="">
+
+														<input type="file">
+														
+														<div class="home-events-image-uploader">
+
+															<img class="display-img-container" id="display-img" src="{% static 'img/photo.png' %}">
+
+															<div class="">
+																<span>Upload Cover Image</span>
+															</div>
+
+															<div class="">
+																<span>Minimum width 480 pixels, 16:9 recommended</span>
+															</div>
+
+														</div>
+
+													</label>
+													
+												</div>
+
+												<div class="home-events-type">
+													
+													<span>Event type</span>
+
+													<div class="home-events-type-option">
+
+														<div class="">
+															<input type="checkbox" id="onlineEventOption">
+															<label for="onlineEventOption">Online</label>
+														</div>
+
+														<div class="">
+															<input type="checkbox" id="inPersonEventOption">
+															<label for="inPersonEventOption">In person</label>
+														</div>
+													
+													</div>
+
+												</div>
+
+												<div class="">
+
+													<span>Event Name</span>
+
+													<div>
+														<input type="text">
+													</div>
+
+												</div>
+
+												<div class="">
+
+													<span>Timezone</span>
+
+													<div>
+														<input type="text">
+													</div>
+
+												</div>
+
+												<div class="">
+
+													<span>Event Name</span>
+
+													<div>
+														<input type="text">
+													</div>
+
+												</div>
+
+												<div class="">
+
+													<span>Description</span>
+
+													<div>
+														<input type="text">
+													</div>
+
+												</div>
+												
+											</div>
+
+											<div class="universal-hr-line"></div>
+
+												<div class="home-upload-post-modal-action-area">
+									
+													<button  class="home-upload-post-modal-action-button" type="submit">
+														Post
+													</button>
+										
+												</div>
+
+
+										</div>
+
+
+									</div>
+
+								</div>
+							</form>
+							{% endif %}
+
+							{% for obj in page_obj %}
+							
+								{% include "snippets/post.html" %}
+	
+							{% endfor %}
+	
+						</div>
+
+						<!-- Pagination Starts Here -->
+						<div class="pagination-system" style="color: white;">							
+
+							<div aria-label="Page navigation example">
+								{% if page_obj.has_other_pages %}
+								<ul class="pagination">
+							
+									{% if page_obj.has_previous %}
+									<li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+									<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+									{% endif %}
+							
+
+									{% if page_obj.number|add:'-2' > 1 %}
+									<li class="page-item"><a class="page-link" > &hellip; </a></li>
+									{% endif %}
+
+
+
+									{% for i in page_obj.paginator.page_range %}
+									{% if page_obj.number == i %}
+									<li class="page-item active"><span class="page-link" >{{ i }} <span class="sr-only"></span> </span></li>
+									{% elif i > page_obj.number|add:'-2' and i < page_obj.number|add:'2' %}
+									<li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+									{% endif %}
+									{% endfor %}
+									
+
+									{% if page_obj.paginator.num_pages > page_obj.number|add:'2' %}
+									<li class="page-item"><a class="page-link" > &hellip; </a></li>
+									<!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages}}"> {{ i }} </a></li> -->
+									<li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}"> {{ page_obj.paginator.num_pages }} </a></li>
+									{% endif %}
+							
+									{% if page_obj.has_next %}
+									<li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
+									<li class="page-item"><a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Last &raquo</a>
+									</li>
+									{% endif %}
+
+								</ul>
+								{% endif %}
+							</div>
+						</div>
+						<!-- Pagination Ends Here -->
+
+					</div>
+	
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 home-right-col">
+						<div class="home-right-area">
+							<div class="home-advts">
+								<div class="golden-heading">
+									<h3>{{advertisement_section.boxTitle}}</h3>
+								</div>
+								<div class="right-image">
+									<img src="{{advertisement_section.boxImage.url}}">
+								</div>
+							</div>
+							<div class="home-event">
+								<div class="golden-heading">
+									<h3>{{upcoming_events_section.boxTitle}}</h3>
+								</div>
+								<div class="right-image">
+									<img src="{{upcoming_events_section.boxImage.url}}">
+								</div>
+							</div>
+							<!-- <div class="home-contact">
+								<div class="golden-heading">
+									<h3>Upcoming Events</h3>
+								</div>
+								<div class="home-contact-dtl">
+									<table>
+										<tr>
+											<td><i class="fa fa-phone" aria-hidden="true"></i></td>
+											<td><strong> Phone: </strong></td>
+											<td><a href="#"> 123 456 7890 </a></td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-envelope" aria-hidden="true"></i>
+											<td><strong> Email: </strong></td>
+											<td><a href="#"> email@gmail.com </a></td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-map-marker" aria-hidden="true"></i>
+											<td><strong> Address:&nbsp;&nbsp;&nbsp; </strong></td>
+											<td> 123, House name, Street, City, Country, Pin Code </td>
+										</tr>
+									</table>
+								</div>
+							</div> -->
+						</div>
+					</div>
+	
+				</div>
+
+				<!-- Home All Modals -->
+				<div class="home-all-modals-container">
+
+					<!-- Posts comment btn modal here  -->
+					<div class="post-cmmnt-btn-modal-wrapper">
+						<div class="post-cmmnt-btn-modal-container">
+							<div class="post-cmmnt-btn-modal-container-header">
+								<span class="">
+									User's Post
+								</span>
+								<button  type="button" id="cmmntCloseButton">
+									&times;
+								</button>
+							</div>
+							<div class="universal-hr-line"></div>
+							<div class="post-cmmnt-btn-modal-container-content-area">
+
+								{% comment %} {% for obj in page_obj %}
+									{% include "snippets/post.html" %}
+								{% endfor %} {% endcomment %}
+
+							</div>
+							<div class="universal-hr-line"></div>
+							<div class="post-cmmnt-btn-modal-container-cmmnt-box">
+								<form action="" class="post-cmmnt-btn-modal-container-cmmnt-box-form">
+									<textarea name="" id="" rows="1" placeholder="Write your comment.."></textarea>
+									<button type="submit" id="cmmntSubmitBtn">
+										Submit
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+<!--webpage-->
+
+<!--scroll-to-top-->
+	<a id="scrollToTop" class="scroll-hide" href=""><i class="fas fa-chevron-up"></i></a>
+<!--scroll-to-top-->
+
+
+
+{% endblock index %}

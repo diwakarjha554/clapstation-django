@@ -1,0 +1,13 @@
+{% for i in call %}
+<div>
+    <div>
+        {{i.user.first_name}} {{i.user.last_name}}
+    </div>
+        {{i.content}}
+</div>
+{% endfor %}
+<form  method="POST">
+    {% csrf_token %}
+    <input type="text" name="comment" class="" placeholder="Leave a comment">
+    <input type="submit" class="" value="comment">
+</form>

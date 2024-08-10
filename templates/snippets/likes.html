@@ -1,0 +1,75 @@
+{% load static %}
+
+<div id="likes-counter-div-{{ obj.id }}">
+    <div class="post-view-counter-section">
+        <div class="post-view-likes-counter" >
+            <a href="">
+                
+                <span id="like-{{ obj.id }}">
+                    {{obj.likes.count}}
+                </span>
+                {% if obj.likes.count <= 1 %} 
+                Like
+                {%  else %}
+                Likes
+                {% endif %}
+            </a>
+        </div>
+        
+        <div class="post-view-comments-share-counter">
+            
+        </div>
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="post-view-action-section">
+            <div class="test-bot">
+                <a hx-get="{% url 'post-like' obj.id %}"
+                hx-target="#likes-counter-div-{{ obj.id }}"
+                hx-swap="outerHTML">
+                    <li>
+                        <div class="post-view-action-section-list-div">
+
+                            {% if user in obj.likes.all %}
+                                <i class="fa-solid fa-thumbs-up home-post-icons-props home-post-like-icon"></i>
+                            {% else %}
+                                <i class="fa-regular fa-thumbs-up home-post-icons-props" aria-hidden="true"></i>
+                            {% endif %}
+
+                            <span>
+                                {% if user in obj.likes.all %}
+                                <span style="color: #bf9200;">Liked</span>
+                                {% else %}
+                                Like
+                                {% endif %}
+                            </span>
+                        </div>
+                    </li>
+                </a>
+            
+                <a id="cmmntTrigger">
+                    <li>
+                        <div class="post-view-action-section-list-div">
+                            <i class="fa-regular fa-comment home-post-icons-props" aria-hidden="true"></i>
+                            <span>
+                                Comment
+                            </span>
+                        </div>
+                    </li>
+                </a>
+            
+                <a href="#">	
+                    <li>
+                        <div class="post-view-action-section-list-div">
+                            <i class="fa fa-share-square home-post-icons-props" aria-hidden="true"></i>
+                            <span>
+                                Share
+                            </span>
+                        </div>
+                    </li>
+                </a>
+            </div>
+    </div>
+</div>
+

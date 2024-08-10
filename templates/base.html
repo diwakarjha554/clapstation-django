@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{titles}}</title>
+
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/about.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+</head>
+
+<body>
+
+    <!--website-wrap-->
+    <div class="website-wrap home-page">
+        <div class="page-back" id="bg-image">
+            <!--page-black-overlay-->
+            <div class="page-black-overlay">
+
+                <!-- Header Section Starts -->
+                <header class="header">
+
+                    <div class="header-bar">
+
+                        <div class="logo">
+                            <a href="/">
+                                <img src="{% static 'img/logo.png' %}">
+                            </a>
+                        </div>
+
+                        <nav class="nav-bar">
+                            <ul class="">
+                                <li><a class="" href="{% url 'homepage' %}">Home</a></li>
+                                <li><a href="#">Groups</a></li>
+                                <li><a href="#">Bands</a></li>
+                                <li><a href="#">Academies</a></li>
+                                <li><a href="#">Events</a></li>
+                                <li><a href="#">Artists</a></li>
+                                <li><a href="{% url 'aboutus' %}">About Us</a></li>
+                                <li><a href="{% url 'contactus' %}">Contact Us</a></li> 
+                            </ul>
+                        </nav>
+
+                        <div class="icon-bar">
+
+                            <div class="search-form-header">
+                                <form action="" class="search-form">
+                                    <div class="search-bar-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                                    <input type="text" placeholder="Search..." name="search"  class="search-input slowHover">
+                                </form>
+                            </div>
+
+
+                            <div class="search-icon">
+                                <img src='{% static "img/search-icon.png"%}' alt="">
+                            </div>
+
+                            <div class="menu-icon">
+                                <img src='{% static "img/menu-icon.png"%}' alt="">
+                            </div>
+
+
+
+
+                            <div class="header-user">
+                                <a href="#"><i class="fa fa-bell header-icons" aria-hidden="true"></i></a>
+                            </div>
+
+                            <div class="header-user header-profile">
+                                {% if request.user.is_authenticated %}
+                                    <div class="user-photo-icon header-user-icon">
+                                        <img src="{% static 'img/noprofile.png' %}" alt="">
+                                    </div>
+                                {% else %}
+                                    <a href="#"><i class="fa fa-user header-icons" aria-hidden="true"></i></a>
+                                {% endif %}
+                                
+                                
+                                <div class="header-profile-dropdown slowHover">
+                                    <ul>
+                                        {% if request.user.is_authenticated %}
+                                        <li id="profile">
+                                            <a href="{% url 'user_profile' %}" class="slowHover">
+                                                <i class="fa fa-user" aria-hidden="true"></i> 
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li id="logout">
+                                            <a href="{% url 'logOut' %}" class="slowHover">
+                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                Logout
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li id="signin">
+                                            <a href="{% url 'login' %}" class="slowHover">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                LogIn
+                                            </a>
+                                        </li>
+                                        <li id="signup">
+                                            <a href="{% url 'signup' %}" class="slowHover">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                SignUp
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Header Section Ends -->
+
+
+                {% block index %}{% endblock index %}
+                
+                {% block groups %}{% endblock groups %}
+
+                {% block bands %}{% endblock bands %}
+
+                {% block academies %}{% endblock academies %}
+                
+                {% block events %}{% endblock events %}
+
+                {% block artists %}{% endblock artists %}
+
+                {% block contactUs %}{% endblock contactUs %}
+
+                {% block aboutUs %}{% endblock aboutUs %}
+
+                {% block profile %}{% endblock profile %}
+
+
+                <!-- Footer Section Starts -->
+                <footer>
+                    <div class="content">
+                        <div class="top">
+                            <div class="logo-details">
+                                {% comment %} <i class="fab fa-slack"></i> {% endcomment %}
+                                <div class="logo">
+                                    <a href="/">
+                                        <img src="{% static 'img/logo.png' %}">
+                                    </a>
+                                </div>
+                                <span class="logo_name">Clap Station</span>
+                            </div>
+                            <div class="media-icons">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        <div class="link-boxes">
+                            <ul class="box">
+                                <li class="link_name">Company</li>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Contact us</a></li>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Get started</a></li>
+                            </ul>
+                            <ul class="box">
+                                <li class="link_name">Services</li>
+                                <li><a href="#">Book Jamming space</a></li>
+                                <li><a href="#">Artist</a></li>
+                                <li><a href="#">Events</a></li>
+                                <li><a href="#">Banner design</a></li>
+                            </ul>
+                            <ul class="box">
+                                <li class="link_name">Account</li>
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">My account</a></li>
+                                <li><a href="#">Prefrences</a></li>
+                                <li><a href="#">Purchase</a></li>
+                            </ul>
+                            <ul class="box">
+                                <li class="link_name">Courses</li>
+                                <li><a href="#">HTML & CSS</a></li>
+                                <li><a href="#">JavaScript</a></li>
+                                <li><a href="#">Photography</a></li>
+                                <li><a href="#">Photoshop</a></li>
+                            </ul>
+                            <ul class="box input-box">
+                                <li class="link_name">Subscribe</li>
+                                <li><input type="text" placeholder="Enter your email"></li>
+                                <li><input type="button" value="Subscribe"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bottom-details">
+                        <div class="bottom_text">
+                            <span class="copyright_text">Copyright © 2023 <a href="#">ClapStation.</a>All rights reserved</span>
+                            <span class="policy_terms">
+                                <a href="#">Privacy policy</a>
+                                <a href="#">Terms & condition</a>
+                            </span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- Footer Section Ends -->
+
+                
+
+
+            </div>
+            <!--website-wrap-->
+        </div>
+        <!--website-wrap-overlay-->
+    </div>
+
+
+
+
+    <!-- Js Scripts Here -->
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/popper.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- <script src="{% static 'js/custom.js' %}" type="text/javascript"></script> -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/sliding.js' %}"></script>
+
+</body>
+
+</html>

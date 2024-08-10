@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block profile %}
+
+	
+    <div class="profile_page">
+        <div class="user_info">
+            <div class="user_info_profile">
+                <div class="user_profile_image">
+                    <img src="{{ profile.profile_picture.url }}" alt="hii">
+                </div>
+                <div class="user_profile_details">
+                    <div class="text_props_profile">
+                        <span>{{ profile.user.first_name }} {{ profile.user.last_name }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div>
+
+                </div>
+                <div class="">
+                    <div class="edit_profile_btn">
+                        <span id="editProfileTrigger">Edit Profile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- All Profile Modals -->
+    <div class="edit_profile_wrapper">
+        <div class="edit_profile_container">
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {{ form.as_p }}
+
+                <div class="universal-hr-line"></div>
+
+                <div>
+                    <button type="submit">Submit</button>
+                    <a href="{{ request.META.HTTP_REFERER }}">Cancel</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+{% endblock profile %}
