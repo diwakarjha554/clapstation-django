@@ -11,6 +11,7 @@ def create_post(request):
         if createPostForm.is_valid():
             profile = createPostForm.save(commit=False);
             profile.user = request.user
+            profile.author = request.user
             profile.save()
         return redirect('homepage')
 

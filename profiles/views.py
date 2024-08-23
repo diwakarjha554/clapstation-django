@@ -34,6 +34,27 @@ def user_profile(request):
 
 
 
+def user_prof(request,email):
+    
+    profile = User.objects.get(email=email)
+
+    form = ProfileForm(instance=request.user.profile)
+    
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+    
+    context = {
+        'profile': profile,
+        'form': form,
+    }
+    
+    return render(request, 'profile.html', context=context)
+
+
+
 
 # def user_profile(request,email):
     

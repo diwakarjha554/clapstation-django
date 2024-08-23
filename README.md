@@ -1,2 +1,0 @@
-# clapstation-django
-Django Project
